@@ -1,9 +1,14 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "laravel/laravel",
+    "name": "clickklack/skriptdepot",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
+    "description": "Internes Portal zur Ausgabe von Tampermonkey-Userscripts mit Token-Auth, Update-Weg und Wasserzeichen.",
+    "keywords": [
+        "tampermonkey",
+        "userscript",
+        "laravel",
+        "filament"
+    ],
     "license": "MIT",
     "require": {
         "php": "^8.3",
