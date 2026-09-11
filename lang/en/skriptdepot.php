@@ -43,7 +43,7 @@ return [
         'entitled_since' => 'Entitled since',
         'entitlements_count' => 'Entitlements',
         'install_url' => 'Install link',
-        'invitation' => 'Invitation',
+        'status' => 'Status',
         'password_confirmation' => 'Confirm password',
     ],
 
@@ -52,6 +52,7 @@ return [
         'slug' => 'Lowercase letters, digits and hyphens only; part of the delivery URL.',
         'source' => 'Paste the raw userscript; placeholders and watermarks are added automatically on save. Prepared sources containing {{BUILD}} are left unchanged.',
         'version_immutable' => 'Source and version number cannot be changed after creation. Create a new, higher version instead.',
+        'block' => 'The user can no longer sign in and receives no scripts or updates. Entitlements, watermarks and the delivery log are kept.',
         'entitlement_immutable' => 'User and script are fixed after creation. Revoke access via "Active".',
     ],
 
@@ -73,16 +74,21 @@ return [
         'send_invitation' => 'Send invitation',
         'inject_watermark' => 'Insert watermarks',
         'resend_invitation' => 'Resend invitation',
+        'block' => 'Block',
+        'unblock' => 'Unblock',
     ],
 
-    'invitation_status' => [
+    'account_status' => [
         'none' => 'Not invited',
         'pending' => 'Invited',
-        'accepted' => 'Accepted',
+        'accepted' => 'Active',
+        'blocked' => 'Blocked',
     ],
 
     'notifications' => [
         'invitation_sent' => 'Invitation sent to :email.',
+        'blocked' => ':name is blocked.',
+        'unblocked' => ':name is unblocked.',
     ],
 
     'invitation' => [

@@ -13,6 +13,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 use UnitEnum;
 
 class UserResource extends Resource
@@ -36,6 +37,20 @@ class UserResource extends Resource
     public static function getPluralModelLabel(): string
     {
         return __('skriptdepot.resources.user.plural');
+    }
+
+    /**
+     * Löschen nur, solange nie etwas ausgeliefert wurde, sonst gingen Wasserzeichen und Protokoll verloren; nie sich selbst.
+     */
+    public static function canDelete(Model $record): bool
+    {
+        /** @var User $record */
+        return ! $record->hasDeliveryHistory() && $record->isNot(auth()->user());
+    }
+
+    public static function canDeleteAny(): bool
+    {
+        return false;
     }
 
     public static function form(Schema $schema): Schema

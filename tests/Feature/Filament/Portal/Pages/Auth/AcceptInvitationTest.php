@@ -80,3 +80,9 @@ it('lehnt ein zu kurzes Passwort ab', function () {
         ->call('acceptInvitation')
         ->assertHasFormErrors(['password']);
 });
+
+it('lehnt die Einladung eines gesperrten Nutzers mit 403 ab', function () {
+    $user = User::factory()->unverified()->create(['blocked_at' => now()]);
+
+    $this->get(invitationUrl($user))->assertForbidden();
+});

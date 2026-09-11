@@ -42,6 +42,8 @@ class AcceptInvitation extends SimplePage
 
     public function mount(User $user): void
     {
+        abort_if($user->isBlocked(), 403);
+
         if ($user->hasVerifiedEmail()) {
             Notification::make()
                 ->title(__('skriptdepot.invitation.already_accepted'))

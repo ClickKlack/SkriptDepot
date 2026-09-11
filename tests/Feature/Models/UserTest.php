@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+use App\Models\Watermark;
 
 it('erzeugt beim Anlegen automatisch einen geheimen Seed', function () {
     $user = User::factory()->make(['seed' => null]);
@@ -26,4 +27,18 @@ it('lässt nur Administratoren in das Admin-Panel', function () {
         ->and($member->canAccessPanel($portalPanel))->toBeTrue()
         ->and($admin->canAccessPanel($adminPanel))->toBeTrue()
         ->and($admin->canAccessPanel($portalPanel))->toBeTrue();
+});
+
+it('lässt gesperrte Nutzer in kein Panel', function () {
+    $user = User::factory()->admin()->create(['blocked_at' => now()]);
+
+    expect($user->canAccessPanel(filament()->getPanel('admin')))->toBeFalse()
+        ->and($user->canAccessPanel(filament()->getPanel('portal')))->toBeFalse();
+});
+
+it('verweigert das Löschen, sobald ein Wasserzeichen ausgeliefert wurde', function () {
+    $user = Watermark::factory()->create()->entitlement->user;
+
+    expect(fn () => $user->delete())->toThrow(LogicException::class);
+    $this->assertModelExists($user);
 });

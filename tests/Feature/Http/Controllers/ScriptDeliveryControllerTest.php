@@ -141,6 +141,16 @@ describe('Ablehnung', function () {
         $this->get($url)->assertForbidden();
     })->with(['.user.js', '.meta.js']);
 
+    it('antwortet mit 403, sobald der Nutzer gesperrt ist', function (string $suffix) {
+        $entitlement = deliverableEntitlement();
+        $url = "/s/{$entitlement->token}/{$entitlement->script->slug}{$suffix}";
+        $this->get($url)->assertOk();
+
+        $entitlement->user->forceFill(['blocked_at' => now()])->save();
+
+        $this->get($url)->assertForbidden();
+    })->with(['.user.js', '.meta.js']);
+
     it('antwortet mit 403, wenn das Skript noch keine Version hat', function () {
         $entitlement = Entitlement::factory()->create();
 

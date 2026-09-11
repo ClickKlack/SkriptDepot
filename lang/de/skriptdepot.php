@@ -43,7 +43,7 @@ return [
         'entitled_since' => 'Freigeschaltet seit',
         'entitlements_count' => 'Freischaltungen',
         'install_url' => 'Installations-Link',
-        'invitation' => 'Einladung',
+        'status' => 'Status',
         'password_confirmation' => 'Passwort wiederholen',
     ],
 
@@ -52,6 +52,7 @@ return [
         'slug' => 'Nur Kleinbuchstaben, Ziffern und Bindestriche; Teil der Auslieferungs-URL.',
         'source' => 'Rohes Userscript einfügen; Platzhalter und Wasserzeichen werden beim Speichern automatisch ergänzt. Vorbereitete Quelltexte mit {{BUILD}} bleiben unverändert.',
         'version_immutable' => 'Quelltext und Versionsnummer sind nach dem Anlegen unveränderlich. Für Änderungen eine neue, höhere Version anlegen.',
+        'block' => 'Der Nutzer kann sich nicht mehr anmelden und erhält keine Skripte und Updates mehr. Freischaltungen, Wasserzeichen und Protokoll bleiben erhalten.',
         'entitlement_immutable' => 'Nutzer und Skript sind nach dem Anlegen fest. Der Widerruf erfolgt über „Aktiv".',
     ],
 
@@ -73,16 +74,21 @@ return [
         'send_invitation' => 'Einladung senden',
         'inject_watermark' => 'Wasserzeichen einfügen',
         'resend_invitation' => 'Einladung erneut senden',
+        'block' => 'Sperren',
+        'unblock' => 'Entsperren',
     ],
 
-    'invitation_status' => [
+    'account_status' => [
         'none' => 'Nicht eingeladen',
         'pending' => 'Eingeladen',
-        'accepted' => 'Angenommen',
+        'accepted' => 'Aktiv',
+        'blocked' => 'Gesperrt',
     ],
 
     'notifications' => [
         'invitation_sent' => 'Einladung an :email verschickt.',
+        'blocked' => ':name ist gesperrt.',
+        'unblocked' => ':name ist wieder freigegeben.',
     ],
 
     'invitation' => [

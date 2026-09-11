@@ -3,9 +3,9 @@
 namespace App\Enums;
 
 /**
- * Stand der Einladung eines Nutzers.
+ * Stand eines Nutzerkontos, wie er im Admin angezeigt wird.
  */
-enum InvitationStatus: string
+enum AccountStatus: string
 {
     // Noch keine Einladung verschickt.
     case None = 'none';
@@ -13,4 +13,6 @@ enum InvitationStatus: string
     case Pending = 'pending';
     // Passwort gesetzt, E-Mail damit bestätigt.
     case Accepted = 'accepted';
+    // Vom Admin gesperrt: kein Login, keine Auslieferung.
+    case Blocked = 'blocked';
 }

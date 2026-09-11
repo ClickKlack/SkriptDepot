@@ -55,6 +55,8 @@ class ScriptDeliveryController extends Controller
             ->active()
             ->where('token', $token)
             ->whereHas('script', fn ($query) => $query->where('slug', $slug))
+            // Gesperrte Nutzer bekommen nichts mehr, auch wenn die Freischaltung selbst aktiv ist.
+            ->whereHas('user', fn ($query) => $query->whereNull('blocked_at'))
             ->with(['user', 'script.latestVersion'])
             ->first();
 

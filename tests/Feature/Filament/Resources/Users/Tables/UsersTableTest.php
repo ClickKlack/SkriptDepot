@@ -1,6 +1,8 @@
 <?php
 
 use App\Filament\Resources\Users\Pages\ListUsers;
+use App\Models\Delivery;
+use App\Models\Entitlement;
 use App\Models\User;
 use App\Notifications\UserInvitation;
 use Filament\Actions\Testing\TestAction;
@@ -30,4 +32,39 @@ it('zeigt für aktivierte Nutzer keine Einladungsaktion', function () {
 
     Livewire::test(ListUsers::class)
         ->assertActionHidden(TestAction::make('invite')->table($accepted));
+});
+
+it('sperrt und entsperrt einen Nutzer', function () {
+    $user = User::factory()->create();
+    $component = Livewire::test(ListUsers::class);
+
+    $component->callAction(TestAction::make('block')->table($user));
+
+    expect($user->fresh()->isBlocked())->toBeTrue();
+
+    $component->callAction(TestAction::make('unblock')->table($user));
+
+    expect($user->fresh()->isBlocked())->toBeFalse();
+});
+
+it('bietet für das eigene Konto weder Sperren noch Löschen an', function () {
+    $self = auth()->user();
+
+    Livewire::test(ListUsers::class)
+        ->assertActionHidden(TestAction::make('block')->table($self))
+        ->assertActionHidden(TestAction::make('delete')->table($self));
+});
+
+it('löscht Nutzer samt Freischaltungen, solange nichts ausgeliefert wurde', function () {
+    $neverDelivered = Entitlement::factory()->inactive()->create()->user;
+    $delivered = Delivery::factory()->create()->entitlement->user;
+
+    Livewire::test(ListUsers::class)
+        ->assertActionHidden(TestAction::make('delete')->table($delivered))
+        ->assertActionVisible(TestAction::make('delete')->table($neverDelivered))
+        ->callAction(TestAction::make('delete')->table($neverDelivered));
+
+    $this->assertModelMissing($neverDelivered);
+    $this->assertDatabaseMissing('entitlements', ['user_id' => $neverDelivered->id]);
+    $this->assertModelExists($delivered);
 });
