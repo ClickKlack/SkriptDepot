@@ -4,6 +4,7 @@ use App\Models\Entitlement;
 use App\Models\ScriptVersion;
 use App\Models\Watermark;
 use App\Services\ScriptBuilder;
+use App\Services\ScriptWatermarker;
 use App\Services\WatermarkResolver;
 use App\Support\WatermarkMatchMethod;
 
@@ -57,4 +58,20 @@ it('extrahiert nur Build-Hashes aus den bekannten Injektionsstellen', function (
     $hashes = $resolver->extractBuildHashes("/* build: 01234567 */\nconst BUILD = '01234567';\nconst other = 'deadbeef';");
 
     expect($hashes)->toBe(['01234567']);
+});
+
+it('findet auch die automatisch eingefügten Marker in einer ausgelieferten Kopie', function () {
+    $master = app(ScriptWatermarker::class)->inject(file_get_contents(base_path('tests/Fixtures/raw-script.user.js')));
+    $scriptVersion = ScriptVersion::factory()->create(['source' => $master]);
+    $entitlement = Entitlement::factory()->for($scriptVersion->script)->create();
+    $delivered = (new ScriptBuilder)->build($entitlement, $scriptVersion);
+    $buildHash = (new ScriptBuilder)->buildHashFor($entitlement, $scriptVersion);
+    // Nur die Zuweisung bleibt übrig, etwa nach einem Minifier, der Kommentare entfernt.
+    $stripped = preg_replace('#(/\*.*?\*/|//[^\n]*)#s', '', $delivered);
+
+    $resolver = app(WatermarkResolver::class);
+
+    expect($resolver->extractBuildHashes($delivered))->toBe([$buildHash])
+        ->and($resolver->extractBuildHashes($stripped))->toBe([$buildHash])
+        ->and($resolver->resolve($stripped)->pluck('entitlement.id')->unique()->all())->toBe([$entitlement->id]);
 });

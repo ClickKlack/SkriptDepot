@@ -5,10 +5,13 @@ namespace App\Filament\Resources\Scripts;
 use App\Filament\Resources\Scripts\Pages\CreateScript;
 use App\Filament\Resources\Scripts\Pages\EditScript;
 use App\Filament\Resources\Scripts\Pages\ListScripts;
+use App\Filament\Resources\Scripts\Pages\ManageScriptVersions;
 use App\Filament\Resources\Scripts\Schemas\ScriptForm;
 use App\Filament\Resources\Scripts\Tables\ScriptsTable;
 use App\Models\Script;
 use BackedEnum;
+use Filament\Pages\Enums\SubNavigationPosition;
+use Filament\Resources\Pages\Page;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -22,6 +25,11 @@ class ScriptResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedDocumentText;
 
     protected static ?int $navigationSort = 20;
+
+    protected static ?string $recordTitleAttribute = 'name';
+
+    // Tabs oberhalb des Inhalts: „Bearbeiten" und „Versionen" je Skript.
+    protected static ?SubNavigationPosition $subNavigationPosition = SubNavigationPosition::Top;
 
     public static function getNavigationGroup(): string|UnitEnum|null
     {
@@ -48,12 +56,21 @@ class ScriptResource extends Resource
         return ScriptsTable::configure($table);
     }
 
+    public static function getRecordSubNavigation(Page $page): array
+    {
+        return $page->generateNavigationItems([
+            EditScript::class,
+            ManageScriptVersions::class,
+        ]);
+    }
+
     public static function getPages(): array
     {
         return [
             'index' => ListScripts::route('/'),
             'create' => CreateScript::route('/create'),
             'edit' => EditScript::route('/{record}/edit'),
+            'versions' => ManageScriptVersions::route('/{record}/versions'),
         ];
     }
 }

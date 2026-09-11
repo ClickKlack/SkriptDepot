@@ -39,6 +39,8 @@ return [
         'build_hash' => 'Build hash',
         'latest_version' => 'Current version',
         'versions_count' => 'Versions',
+        'active_entitlements' => 'Active entitlements',
+        'entitled_since' => 'Entitled since',
         'entitlements_count' => 'Entitlements',
         'install_url' => 'Install link',
         'invitation' => 'Invitation',
@@ -48,7 +50,7 @@ return [
     'hints' => [
         'invitation' => 'After saving, the user receives an invitation email and sets their own password.',
         'slug' => 'Lowercase letters, digits and hyphens only; part of the delivery URL.',
-        'source' => 'Must contain the placeholders {{VERSION}}, {{BASE}}, {{TOKEN}}, {{SLUG}} and {{BUILD}} at least twice.',
+        'source' => 'Paste the raw userscript; placeholders and watermarks are added automatically on save. Prepared sources containing {{BUILD}} are left unchanged.',
         'version_immutable' => 'Source and version number cannot be changed after creation. Create a new, higher version instead.',
         'entitlement_immutable' => 'User and script are fixed after creation. Revoke access via "Active".',
     ],
@@ -64,10 +66,12 @@ return [
     ],
 
     'actions' => [
+        'manage_entitlements' => 'Entitlements',
         'open_install_link' => 'Open install link',
         'copy_install_link' => 'Copy install link',
         'copied' => 'Copied',
         'send_invitation' => 'Send invitation',
+        'inject_watermark' => 'Insert watermarks',
         'resend_invitation' => 'Resend invitation',
     ],
 
@@ -103,8 +107,13 @@ return [
         'requested_body' => 'If an account with this email address exists, you will shortly receive a link to reset your password.',
     ],
 
+    'entitlements' => [
+        'title' => 'Entitlements: :script',
+    ],
+
     'validation' => [
         'version_not_higher' => 'The version must be higher than the current version :latest.',
+        'syntax_error' => 'The script is not valid JavaScript (line :line): :message',
         'entitlement_exists' => 'This user is already entitled to this script.',
         'master_script' => [
             'header' => 'The source contains no // ==UserScript== … // ==/UserScript== block.',

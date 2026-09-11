@@ -39,6 +39,8 @@ return [
         'build_hash' => 'Build-Hash',
         'latest_version' => 'Aktuelle Version',
         'versions_count' => 'Versionen',
+        'active_entitlements' => 'Aktive Freischaltungen',
+        'entitled_since' => 'Freigeschaltet seit',
         'entitlements_count' => 'Freischaltungen',
         'install_url' => 'Installations-Link',
         'invitation' => 'Einladung',
@@ -48,7 +50,7 @@ return [
     'hints' => [
         'invitation' => 'Nach dem Speichern erhält der Nutzer eine Einladungsmail und setzt sein Passwort selbst.',
         'slug' => 'Nur Kleinbuchstaben, Ziffern und Bindestriche; Teil der Auslieferungs-URL.',
-        'source' => 'Muss die Platzhalter {{VERSION}}, {{BASE}}, {{TOKEN}}, {{SLUG}} und mindestens zweimal {{BUILD}} enthalten.',
+        'source' => 'Rohes Userscript einfügen; Platzhalter und Wasserzeichen werden beim Speichern automatisch ergänzt. Vorbereitete Quelltexte mit {{BUILD}} bleiben unverändert.',
         'version_immutable' => 'Quelltext und Versionsnummer sind nach dem Anlegen unveränderlich. Für Änderungen eine neue, höhere Version anlegen.',
         'entitlement_immutable' => 'Nutzer und Skript sind nach dem Anlegen fest. Der Widerruf erfolgt über „Aktiv".',
     ],
@@ -64,10 +66,12 @@ return [
     ],
 
     'actions' => [
+        'manage_entitlements' => 'Freischaltungen',
         'open_install_link' => 'Installations-Link öffnen',
         'copy_install_link' => 'Installations-Link kopieren',
         'copied' => 'Kopiert',
         'send_invitation' => 'Einladung senden',
+        'inject_watermark' => 'Wasserzeichen einfügen',
         'resend_invitation' => 'Einladung erneut senden',
     ],
 
@@ -103,8 +107,13 @@ return [
         'requested_body' => 'Falls ein Konto mit dieser E-Mail-Adresse existiert, erhältst du in Kürze einen Link zum Zurücksetzen.',
     ],
 
+    'entitlements' => [
+        'title' => 'Freischaltungen: :script',
+    ],
+
     'validation' => [
         'version_not_higher' => 'Die Version muss höher sein als die aktuelle Version :latest.',
+        'syntax_error' => 'Das Skript ist kein gültiges JavaScript (Zeile :line): :message',
         'entitlement_exists' => 'Dieser Nutzer ist für dieses Skript bereits freigeschaltet.',
         'master_script' => [
             'header' => 'Der Quelltext enthält keinen // ==UserScript== … // ==/UserScript== Block.',

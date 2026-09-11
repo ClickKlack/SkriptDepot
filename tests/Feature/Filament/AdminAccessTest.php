@@ -4,8 +4,8 @@ use App\Filament\Pages\ResolveWatermark;
 use App\Filament\Resources\Deliveries\DeliveryResource;
 use App\Filament\Resources\Entitlements\EntitlementResource;
 use App\Filament\Resources\Scripts\ScriptResource;
-use App\Filament\Resources\ScriptVersions\ScriptVersionResource;
 use App\Filament\Resources\Users\UserResource;
+use App\Models\Script;
 use App\Models\User;
 
 it('leitet nicht angemeldete Besucher zum Admin-Login', function () {
@@ -21,7 +21,7 @@ it('zeigt Administratoren jede Verwaltungsseite', function (string $url) {
 })->with([
     'Nutzer' => fn () => UserResource::getUrl('index', panel: 'admin'),
     'Skripte' => fn () => ScriptResource::getUrl('index', panel: 'admin'),
-    'Versionen' => fn () => ScriptVersionResource::getUrl('index', panel: 'admin'),
+    'Versionen eines Skripts' => fn () => ScriptResource::getUrl('versions', ['record' => Script::factory()->create()], panel: 'admin'),
     'Freischaltungen' => fn () => EntitlementResource::getUrl('index', panel: 'admin'),
     'Auslieferungen' => fn () => DeliveryResource::getUrl('index', panel: 'admin'),
     'Wasserzeichen auflösen' => fn () => ResolveWatermark::getUrl(panel: 'admin'),

@@ -23,6 +23,11 @@ Die vollständige fachliche Spezifikation liegt in [`Spec/spec.md`](Spec/spec.md
   und ist zusätzlich jederzeit nachrechenbar.
 - **Master-Skripte mit Platzhaltern.** `{{VERSION}}`, `{{BASE}}`, `{{TOKEN}}`, `{{SLUG}}` und `{{BUILD}}`
   werden bei der Auslieferung per String-Ersetzung befüllt.
+- **Automatische Wasserzeichen.** Ein rohes Userscript, wie Tampermonkey es exportiert, wird beim Anlegen
+  einer Version automatisch vorbereitet: Header-Platzhalter, ein Build-Kommentar nach dem Header, eine
+  harmlose Zuweisung am Anfang und je nach Länge weitere Build-Kommentare an Anweisungsgrenzen. Die
+  Grenzen liefert ein JavaScript-Parser, damit kein Marker in Strings oder Kommentaren landet. Der Code
+  selbst wird nicht umgeschrieben.
 
 ## Stack
 
