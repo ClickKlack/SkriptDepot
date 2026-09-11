@@ -2,26 +2,29 @@
 
 namespace App\Filament\Resources\Entitlements;
 
-use App\Filament\Resources\Entitlements\Pages\CreateEntitlement;
-use App\Filament\Resources\Entitlements\Pages\EditEntitlement;
 use App\Filament\Resources\Entitlements\Pages\ListEntitlements;
-use App\Filament\Resources\Entitlements\Schemas\EntitlementForm;
-use App\Filament\Resources\Entitlements\Tables\EntitlementsTable;
-use App\Models\Entitlement;
+use App\Filament\Resources\Entitlements\Pages\ManageEntitlements;
+use App\Filament\Resources\Entitlements\Tables\EntitlementScriptsTable;
+use App\Models\Script;
 use BackedEnum;
 use Filament\Resources\Resource;
-use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 use UnitEnum;
 
+/**
+ * Freischaltungen werden je Skript verwaltet: die Liste zeigt die Skripte, die Detailseite alle Nutzer mit Schalter.
+ */
 class EntitlementResource extends Resource
 {
-    protected static ?string $model = Entitlement::class;
+    protected static ?string $model = Script::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedKey;
 
     protected static ?int $navigationSort = 22;
+
+    protected static ?string $slug = 'entitlements';
 
     public static function getNavigationGroup(): string|UnitEnum|null
     {
@@ -38,22 +41,36 @@ class EntitlementResource extends Resource
         return __('skriptdepot.resources.entitlement.plural');
     }
 
-    public static function form(Schema $schema): Schema
+    public static function canCreate(): bool
     {
-        return EntitlementForm::configure($schema);
+        return false;
+    }
+
+    public static function canEdit(Model $record): bool
+    {
+        return false;
+    }
+
+    public static function canDelete(Model $record): bool
+    {
+        return false;
+    }
+
+    public static function canDeleteAny(): bool
+    {
+        return false;
     }
 
     public static function table(Table $table): Table
     {
-        return EntitlementsTable::configure($table);
+        return EntitlementScriptsTable::configure($table);
     }
 
     public static function getPages(): array
     {
         return [
             'index' => ListEntitlements::route('/'),
-            'create' => CreateEntitlement::route('/create'),
-            'edit' => EditEntitlement::route('/{record}/edit'),
+            'manage' => ManageEntitlements::route('/{record}'),
         ];
     }
 }
