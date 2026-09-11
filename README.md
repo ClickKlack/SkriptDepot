@@ -67,10 +67,10 @@ Die Tests laufen gegen eine SQLite-Datenbank im Speicher und benötigen keinen D
 
 ## Deployment
 
-Zielplattform ist klassisches Shared-Hosting. Die Anwendung kommt ohne Queue-Worker, Redis oder
-Node-Build-Schritte aus. Die Auslieferungsrouten dürfen ausschließlich über HTTPS erreichbar sein.
-Bei Betrieb hinter einem Reverse-Proxy müssen die Trusted Proxies konfiguriert sein, damit im
-Auslieferungsprotokoll die echten Client-Adressen landen.
+Zielplattform ist klassisches Shared-Hosting mit Plesk. Die Anwendung kommt ohne Queue-Worker, Redis
+oder Node-Build-Schritte aus und wird per `deploy/deploy.sh` vom Entwicklungsrechner aus ausgeliefert.
+Einrichtung und Ablauf stehen in [`deploy/README.md`](deploy/README.md). Produktiv werden alle Links
+als HTTPS erzeugt; ein gültiges Zertifikat ist Pflicht, sonst bricht Tampermonkey den Update-Check ab.
 
 ## Lizenz
 
