@@ -3,6 +3,7 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Auth\EditProfile;
+use App\Filament\Auth\RequestPasswordReset;
 use App\Http\Middleware\SetLocale;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
@@ -33,7 +34,11 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->brandName(fn (): string => __('skriptdepot.brand'))
             ->login()
-            ->profile(EditProfile::class)
+            ->passwordReset(RequestPasswordReset::class)
+            // Eine geänderte E-Mail-Adresse gilt erst nach Bestätigung über die neue Adresse.
+            ->emailChangeVerification()
+            // Profil im normalen Panel-Layout, damit Navigation und Nutzermenü erreichbar bleiben.
+            ->profile(EditProfile::class, isSimple: false)
             ->colors([
                 'primary' => Color::Amber,
             ])

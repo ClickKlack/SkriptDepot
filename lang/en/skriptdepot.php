@@ -41,10 +41,12 @@ return [
         'versions_count' => 'Versions',
         'entitlements_count' => 'Entitlements',
         'install_url' => 'Install link',
+        'invitation' => 'Invitation',
+        'password_confirmation' => 'Confirm password',
     ],
 
     'hints' => [
-        'password_edit' => 'Leave empty to keep the current password.',
+        'invitation' => 'After saving, the user receives an invitation email and sets their own password.',
         'slug' => 'Lowercase letters, digits and hyphens only; part of the delivery URL.',
         'source' => 'Must contain the placeholders {{VERSION}}, {{BASE}}, {{TOKEN}}, {{SLUG}} and {{BUILD}} at least twice.',
         'version_immutable' => 'Source and version number cannot be changed after creation. Create a new, higher version instead.',
@@ -65,6 +67,40 @@ return [
         'open_install_link' => 'Open install link',
         'copy_install_link' => 'Copy install link',
         'copied' => 'Copied',
+        'send_invitation' => 'Send invitation',
+        'resend_invitation' => 'Resend invitation',
+    ],
+
+    'invitation_status' => [
+        'none' => 'Not invited',
+        'pending' => 'Invited',
+        'accepted' => 'Accepted',
+    ],
+
+    'notifications' => [
+        'invitation_sent' => 'Invitation sent to :email.',
+    ],
+
+    'invitation' => [
+        'title' => 'Accept invitation',
+        'heading' => 'Welcome to SkriptDepot',
+        'subheading' => 'Set your password to activate your account.',
+        'submit' => 'Set password',
+        'accepted' => 'Your account is now active.',
+        'already_accepted' => 'This invitation has already been accepted. Please sign in.',
+        'mail' => [
+            'subject' => 'Your invitation to SkriptDepot',
+            'greeting' => 'Hello :name,',
+            'intro' => 'An account has been created for you at SkriptDepot. Use the link below to set your password and confirm your email address.',
+            'action' => 'Set password',
+            'expiry' => 'The link is valid for :days days. After that an administrator can send you a new invitation.',
+            'outro' => 'If you did not expect this invitation, you can ignore this email.',
+        ],
+    ],
+
+    'password_reset' => [
+        'requested_title' => 'Request received',
+        'requested_body' => 'If an account with this email address exists, you will shortly receive a link to reset your password.',
     ],
 
     'validation' => [

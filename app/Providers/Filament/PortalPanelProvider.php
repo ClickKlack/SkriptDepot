@@ -3,6 +3,8 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Auth\EditProfile;
+use App\Filament\Auth\RequestPasswordReset;
+use App\Filament\Portal\Pages\Auth\AcceptInvitation;
 use App\Filament\Portal\Pages\MyScripts;
 use App\Http\Middleware\SetLocale;
 use Filament\Http\Middleware\Authenticate;
@@ -17,6 +19,7 @@ use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
+use Illuminate\Support\Facades\Route;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 /**
@@ -32,13 +35,23 @@ class PortalPanelProvider extends PanelProvider
             ->path('portal')
             ->brandName(fn (): string => __('skriptdepot.brand'))
             ->login()
-            ->profile(EditProfile::class)
+            ->passwordReset(RequestPasswordReset::class)
+            // Eine geänderte E-Mail-Adresse gilt erst nach Bestätigung über die neue Adresse.
+            ->emailChangeVerification()
+            // Profil im normalen Panel-Layout, damit Navigation und Nutzermenü erreichbar bleiben.
+            ->profile(EditProfile::class, isSimple: false)
             ->colors([
                 'primary' => Color::Sky,
             ])
             ->pages([
                 MyScripts::class,
             ])
+            // Gast-Route für die Einladung: nur mit gültiger Signatur erreichbar, kein Login nötig.
+            ->routes(function (): void {
+                Route::get('/invitation/{user}', AcceptInvitation::class)
+                    ->middleware('signed')
+                    ->name('invitation.accept');
+            })
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,

@@ -41,10 +41,12 @@ return [
         'versions_count' => 'Versionen',
         'entitlements_count' => 'Freischaltungen',
         'install_url' => 'Installations-Link',
+        'invitation' => 'Einladung',
+        'password_confirmation' => 'Passwort wiederholen',
     ],
 
     'hints' => [
-        'password_edit' => 'Leer lassen, um das Passwort beizubehalten.',
+        'invitation' => 'Nach dem Speichern erhält der Nutzer eine Einladungsmail und setzt sein Passwort selbst.',
         'slug' => 'Nur Kleinbuchstaben, Ziffern und Bindestriche; Teil der Auslieferungs-URL.',
         'source' => 'Muss die Platzhalter {{VERSION}}, {{BASE}}, {{TOKEN}}, {{SLUG}} und mindestens zweimal {{BUILD}} enthalten.',
         'version_immutable' => 'Quelltext und Versionsnummer sind nach dem Anlegen unveränderlich. Für Änderungen eine neue, höhere Version anlegen.',
@@ -65,6 +67,40 @@ return [
         'open_install_link' => 'Installations-Link öffnen',
         'copy_install_link' => 'Installations-Link kopieren',
         'copied' => 'Kopiert',
+        'send_invitation' => 'Einladung senden',
+        'resend_invitation' => 'Einladung erneut senden',
+    ],
+
+    'invitation_status' => [
+        'none' => 'Nicht eingeladen',
+        'pending' => 'Eingeladen',
+        'accepted' => 'Angenommen',
+    ],
+
+    'notifications' => [
+        'invitation_sent' => 'Einladung an :email verschickt.',
+    ],
+
+    'invitation' => [
+        'title' => 'Einladung annehmen',
+        'heading' => 'Willkommen bei SkriptDepot',
+        'subheading' => 'Lege dein Passwort fest, um dein Konto zu aktivieren.',
+        'submit' => 'Passwort festlegen',
+        'accepted' => 'Dein Konto ist aktiviert.',
+        'already_accepted' => 'Diese Einladung wurde bereits angenommen. Bitte melde dich an.',
+        'mail' => [
+            'subject' => 'Deine Einladung zu SkriptDepot',
+            'greeting' => 'Hallo :name,',
+            'intro' => 'für dich wurde ein Konto bei SkriptDepot angelegt. Über den folgenden Link legst du dein Passwort fest und bestätigst damit deine E-Mail-Adresse.',
+            'action' => 'Passwort festlegen',
+            'expiry' => 'Der Link ist :days Tage gültig. Danach kann dir ein Administrator eine neue Einladung schicken.',
+            'outro' => 'Falls du diese Einladung nicht erwartest, kannst du diese E-Mail ignorieren.',
+        ],
+    ],
+
+    'password_reset' => [
+        'requested_title' => 'Anfrage erhalten',
+        'requested_body' => 'Falls ein Konto mit dieser E-Mail-Adresse existiert, erhältst du in Kürze einen Link zum Zurücksetzen.',
     ],
 
     'validation' => [
