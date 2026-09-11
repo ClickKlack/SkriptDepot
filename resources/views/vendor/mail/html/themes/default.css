@@ -1,0 +1,131 @@
+/*
+ * Schlankes Mail-Theme für SkriptDepot.
+ * Bewusst nur breit unterstützte Eigenschaften: keine Positionierung, kein box-sizing,
+ * kein !important, keine Media Queries. Wird beim Versand in Inline-Styles umgewandelt.
+ */
+
+body {
+    background-color: #f4f4f5;
+    color: #3f3f46;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    color: #0369a1;
+}
+
+h1 {
+    color: #18181b;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 28px;
+    margin: 0 0 16px 0;
+    text-align: left;
+}
+
+p {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    margin: 0 0 16px 0;
+    text-align: left;
+}
+
+/* Rahmen */
+
+.wrapper-cell {
+    padding: 24px 12px;
+}
+
+.header {
+    color: #18181b;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 8px 0 24px 0;
+}
+
+.header a {
+    color: #18181b;
+    text-decoration: none;
+}
+
+.inner-body {
+    background-color: #ffffff;
+    border: 1px solid #e4e4e7;
+}
+
+.content-cell {
+    padding: 32px;
+}
+
+/* Button */
+
+.action-cell {
+    padding: 8px 0 24px 0;
+}
+
+.button-cell {
+    background-color: #18181b;
+}
+
+.button {
+    border: 12px solid #18181b;
+    color: #ffffff;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.button-success {
+    border-color: #15803d;
+    background-color: #15803d;
+}
+
+.button-error {
+    border-color: #b91c1c;
+    background-color: #b91c1c;
+}
+
+/* Hinweis unter dem Button */
+
+.subcopy {
+    border-top: 1px solid #e4e4e7;
+    margin-top: 16px;
+    padding-top: 16px;
+}
+
+.subcopy p {
+    color: #71717a;
+    font-size: 13px;
+    line-height: 20px;
+    margin: 0;
+}
+
+.subcopy a {
+    color: #0369a1;
+}
+
+.break-all {
+    word-wrap: break-word;
+}
+
+/* Fußzeile */
+
+.footer {
+    width: 570px;
+}
+
+.footer p {
+    color: #a1a1aa;
+    font-size: 12px;
+    line-height: 18px;
+    margin: 16px 0 0 0;
+    text-align: center;
+}
