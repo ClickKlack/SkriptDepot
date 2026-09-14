@@ -27,7 +27,8 @@ Composer noch Git gebraucht. Geheimnisse und Pfade liegen ausschließlich in `de
 
 1. `deploy/deploy.sh` ausführen. Beim ersten Lauf wird auf dem Server `.env` aus der Vorlage angelegt
    und das Skript hält an.
-2. Per SSH `.env` ausfüllen: `APP_URL`, `DB_*`, `MAIL_*`.
+2. Per SSH `.env` ausfüllen: `APP_URL`, `DB_*`, `MAIL_*`. Passwörter mit Sonderzeichen wie `#` oder `$`
+   in einfache Anführungszeichen setzen, sonst liest Laravel sie verstümmelt.
 3. Auf dem Server: `php artisan key:generate --force`
 4. `deploy/deploy.sh` erneut ausführen. Jetzt laufen Migration und Caches.
 5. Ersten Administrator anlegen, auf dem Server:
@@ -44,6 +45,15 @@ deploy/deploy.sh
 Das Skript verweigert uncommittete Änderungen, lässt die Tests laufen, baut aus dem letzten Commit,
 synchronisiert per rsync, schaltet kurz in den Wartungsmodus, migriert und erneuert die Caches.
 `SKIP_TESTS=1 deploy/deploy.sh` überspringt die Tests.
+
+## Änderungen an der .env auf dem Server
+
+Die Konfiguration ist produktiv gecacht. Nach jeder Änderung an der `.env` auf dem Server den Cache
+erneuern, sonst gilt weiter der alte Wert:
+
+```sh
+php artisan optimize
+```
 
 ## Was auf dem Server liegt
 
